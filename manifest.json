@@ -1,10 +1,10 @@
 {
-  "name": "Hello World extension",
-  "description": "A minimal extension that opens a popup saying Hello Extensions when you click its toolbar icon.",
+  "name": "First Extension",
+  "description": "My first test extension",
   "version": "1.0",
   "manifest_version": 3,
   "action": {
-    "default_popup": "hello.html"
+    "default_popup": "extension.html"
   }
 }
 
