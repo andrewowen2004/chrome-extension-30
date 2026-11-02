@@ -3,6 +3,10 @@
   "description": "My first test extension",
   "version": "1.0",
   "manifest_version": 3,
+  "host_permissions": ["https://www.youtube.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_popup": "hello.html"
   }
