@@ -1,15 +1,17 @@
 {
-  "name": "First Extension",
-  "description": "My first test extension",
-  "version": "1.0",
+  "name": "One Word Answers for ChatGPT",
+  "description": "Adds text to every chat gpt prompt",
   "manifest_version": 3,
-  "host_permissions": ["https://www.youtube.com/*"],
-  "background": {
-    "service_worker": "background.js"
-  },
   "action": {
-    "default_popup": "hello.html"
-  }
+    "default_popup": "oneWord.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*", "https://chat.openai.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
 }
 
 
