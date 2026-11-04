@@ -2,6 +2,7 @@
   "name": "One Word Answers for ChatGPT",
   "description": "Adds text to every chat gpt prompt",
   "manifest_version": 3,
+  "version": "1.0",
   "action": {
     "default_popup": "oneWord.html"
   },
