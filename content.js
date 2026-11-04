@@ -2,11 +2,23 @@
 const SUFFIX = "answer this in one word";
 console.log("[one-word] content script loaded");
 
-const INPUT_SELECTOR = "#prompt-textarea";
-// Find the send button belonging to the main prompt box. We look for the
-// submit button inside the same form as the input, with fallbacks for older layouts.
+// While true, our own synthetic click is allowed through untouched.
+let bypass = false;
+
+// Find the main prompt box. Tries the known ID first, then falls back to any
+// editable field inside a form.
+function getInput() {
+  return (
+    document.querySelector("#prompt-textarea") ||
+    document.querySelector('form [contenteditable="true"]') ||
+    document.querySelector("form textarea")
+  );
+}
+
+// Find the send button belonging to the main prompt box: the submit button
+// inside the same form as the input, with fallbacks for other layouts.
 function getSendButton() {
-  const input = document.querySelector(INPUT_SELECTOR);
+  const input = getInput();
   const form = input && input.closest("form");
   const candidates = form
     ? Array.from(form.querySelectorAll('button[type="submit"]'))
@@ -20,13 +32,6 @@ function getSendButton() {
       'button[data-testid="send-button"], button[aria-label="Send"]'
     )
   );
-}
-
-// While true, our own synthetic click is allowed through untouched.
-let bypass = false;
-
-function getInput() {
-  return document.querySelector(INPUT_SELECTOR);
 }
 
 function getText(el) {
@@ -83,7 +88,11 @@ document.addEventListener(
   (e) => {
     if (e.key !== "Enter" || e.shiftKey || e.isComposing || bypass) return;
     const input = getInput();
-    if (!input || !input.contains(e.target)) return;
+    if (!input) {
+      console.warn("[one-word] Enter pressed but prompt box not found");
+      return;
+    }
+    if (!input.contains(e.target)) return;
     if (!getText(input).trim()) return;
 
     e.preventDefault();

@@ -1,11 +1,8 @@
 {
-  "name": "One Word Answers for ChatGPT",
-  "description": "Adds text to every chat gpt prompt",
   "manifest_version": 3,
+  "name": "One Word Answers for ChatGPT",
   "version": "1.0",
-  "action": {
-    "default_popup": "oneWord.html"
-  },
+  "description": "Appends \"answer this in one word\" to every prompt you send in ChatGPT.",
   "content_scripts": [
     {
       "matches": ["https://chatgpt.com/*", "https://chat.openai.com/*"],
